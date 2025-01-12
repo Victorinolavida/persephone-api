@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/Victorinolavida/go-crm-api/internal/config"
-	"github.com/Victorinolavida/go-crm-api/internal/infrastructure"
-	"github.com/Victorinolavida/go-crm-api/internal/logger"
-	"github.com/Victorinolavida/go-crm-api/internal/server"
+	"github.com/Victorinolavida/persephone-api/internal/config"
+	"github.com/Victorinolavida/persephone-api/internal/infrastructure"
+	"github.com/Victorinolavida/persephone-api/internal/logger"
+	"github.com/Victorinolavida/persephone-api/internal/server"
 
 	"net/http"
 )

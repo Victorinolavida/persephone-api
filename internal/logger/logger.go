@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"github.com/Victorinolavida/go-crm-api/internal/config"
+	"github.com/Victorinolavida/persephone-api/internal/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"os"

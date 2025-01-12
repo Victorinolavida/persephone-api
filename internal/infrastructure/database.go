@@ -3,9 +3,10 @@ package infrastructure
 import (
 	"database/sql"
 	"fmt"
-	"github.com/Victorinolavida/go-crm-api/internal/config"
-	"github.com/Victorinolavida/go-crm-api/internal/logger"
+	"github.com/Victorinolavida/persephone-api/internal/config"
+	"github.com/Victorinolavida/persephone-api/internal/logger"
 	"github.com/uptrace/bun"
+
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"
 )
