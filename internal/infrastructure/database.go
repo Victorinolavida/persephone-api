@@ -3,7 +3,7 @@ package infrastructure
 import (
 	"database/sql"
 	"fmt"
-	"github.com/Victorinolavida/persephone-api/internal/config"
+	"github.com/Victorinolavida/persephone-api/config"
 	"github.com/Victorinolavida/persephone-api/pkg/logger"
 	"github.com/uptrace/bun"
 
@@ -11,15 +11,11 @@ import (
 	"github.com/uptrace/bun/driver/pgdriver"
 )
 
-type DB struct {
-	db *bun.DB
-}
-
-func NewDB(config config.DBConfig) (*DB, error) {
+func NewDB(config config.DBConfig) (*bun.DB, error) {
 	dsn := fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=disable", config.Username, config.Password, config.Host, config.Port, config.DbName)
 	fmt.Println(dsn)
 	sqldb := sql.OpenDB(pgdriver.NewConnector(pgdriver.WithDSN(dsn)))
 	db := bun.NewDB(sqldb, pgdialect.New())
 	logger.GetLogger().Infof("connected to database")
-	return &DB{db}, nil
+	return db, nil
 }
