@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/Victorinolavida/persephone-api/internal/config"
 	"github.com/Victorinolavida/persephone-api/internal/infrastructure"
-	"github.com/Victorinolavida/persephone-api/internal/logger"
-	"github.com/Victorinolavida/persephone-api/internal/server"
+	"github.com/Victorinolavida/persephone-api/pkg/logger"
+	"github.com/Victorinolavida/persephone-api/pkg/server"
 
 	"net/http"
 )

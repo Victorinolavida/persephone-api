@@ -3,7 +3,7 @@ package server
 import (
 	"fmt"
 	"github.com/Victorinolavida/persephone-api/internal/config"
-	"github.com/Victorinolavida/persephone-api/internal/logger"
+	"github.com/Victorinolavida/persephone-api/pkg/logger"
 	"github.com/go-chi/chi/v5"
 	"go.uber.org/zap"
 	"net/http"
