@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Victorinolavida/persephone-api/config"
 	"github.com/Victorinolavida/persephone-api/pkg/logger"
+	"github.com/Victorinolavida/persephone-api/pkg/responses"
 	"github.com/go-chi/chi/v5"
 	"go.uber.org/zap"
 	"net/http"
@@ -19,11 +20,14 @@ func NewServer() *Server {
 	r := chi.NewRouter()
 	Logger := loggerMiddleware(log)
 	r.Use(Logger)
-	r.Get("/healthcheck", func(writer http.ResponseWriter, request *http.Request) {
-		_, err := writer.Write([]byte("ok"))
-		// write status
+	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
+		responses.NotFoundResponse(w)
+	})
+
+	r.Get("/api/v0/healthcheck", func(w http.ResponseWriter, r *http.Request) {
+		err := responses.WriteJsonResponse(w, "ok", http.StatusOK)
 		if err != nil {
-			log.Errorf(err.Error())
+			responses.ServerErrorResponse(w, err)
 		}
 	})
 	return &Server{
