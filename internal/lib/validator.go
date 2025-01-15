@@ -30,7 +30,7 @@ func (v *Validator) ValidateStruct(data interface{}) error {
 	return nil
 }
 
-func (v *Validator) UserPassword(user dto.User) error {
+func (v *Validator) UserPasswordMatch(user dto.User) error {
 	if strings.Compare(user.PasswordConfirmation, user.Password) != 0 {
 		return ErrPasswordMismatch
 	}

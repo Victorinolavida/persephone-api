@@ -21,13 +21,13 @@ func NewServer() *Server {
 	Logger := loggerMiddleware(log)
 	r.Use(Logger)
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
-		responses.NotFoundResponse(w)
+		responses.RenderNotFound(w)
 	})
 
 	r.Get("/api/v0/healthcheck", func(w http.ResponseWriter, r *http.Request) {
 		err := responses.WriteJsonResponse(w, "ok", http.StatusOK)
 		if err != nil {
-			responses.ServerErrorResponse(w, err)
+			responses.RenderServerError(w, err)
 		}
 	})
 	return &Server{

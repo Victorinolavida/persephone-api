@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"github.com/Victorinolavida/persephone-api/internal/adapters/dto"
 	"github.com/Victorinolavida/persephone-api/internal/lib"
+	userModel "github.com/Victorinolavida/persephone-api/internal/models/user"
 	"github.com/Victorinolavida/persephone-api/internal/services/user"
 	"github.com/Victorinolavida/persephone-api/pkg/logger"
+	"github.com/Victorinolavida/persephone-api/pkg/responses"
 	"github.com/Victorinolavida/persephone-api/pkg/server"
 	"github.com/go-chi/chi/v5"
 	"net/http"
@@ -40,18 +42,23 @@ func (c *UserController) handleCreateNewUser(w http.ResponseWriter, r *http.Requ
 		log.Error(err)
 		return
 	}
-	err = c.validator.ValidateStruct(userInfo)
+	err = c.svc.ValidateUserData(nil, userInfo)
 	if err != nil {
-		log.Error(err)
+		responses.RenderError(w, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	err = c.validator.UserPassword(userInfo)
+	newUser, err := userModel.CreateUserFromDTO(userInfo)
 	if err != nil {
-		log.Error(err)
+		responses.RenderError(w, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	log.Debug("user data %v", userInfo)
-	w.Write([]byte("ok"))
+	err = c.svc.Create(nil, newUser)
+
+	if err != nil {
+		responses.RenderError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	responses.RenderJson(w, newUser, http.StatusCreated)
 }

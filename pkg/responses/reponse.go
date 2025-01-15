@@ -18,7 +18,14 @@ func WriteJsonResponse(w http.ResponseWriter, data interface{}, status int) erro
 	return nil
 }
 
-func ErrorResponse(w http.ResponseWriter, status int, message any) {
+func RenderJson(w http.ResponseWriter, data any, status int) {
+	err := WriteJsonResponse(w, data, status)
+	if err != nil {
+		RenderServerError(w, err)
+	}
+}
+
+func RenderError(w http.ResponseWriter, status int, message any) {
 	res := map[string]any{
 		"error": message,
 	}
@@ -30,13 +37,13 @@ func ErrorResponse(w http.ResponseWriter, status int, message any) {
 	}
 }
 
-func ServerErrorResponse(w http.ResponseWriter, err error) {
+func RenderServerError(w http.ResponseWriter, err error) {
 	logger.GetLogger().Error(err)
 	message := "something went wrong"
-	ErrorResponse(w, http.StatusInternalServerError, message)
+	RenderError(w, http.StatusInternalServerError, message)
 }
 
-func NotFoundResponse(w http.ResponseWriter) {
+func RenderNotFound(w http.ResponseWriter) {
 	message := "page not found"
-	ErrorResponse(w, http.StatusNotFound, message)
+	RenderError(w, http.StatusNotFound, message)
 }

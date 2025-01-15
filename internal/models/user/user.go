@@ -1,4 +1,4 @@
-package models
+package user
 
 import (
 	"github.com/google/uuid"
@@ -6,12 +6,12 @@ import (
 	"time"
 )
 
-type UserRole string
+type UserRol string
 
 var (
-	Seller = UserRole("seller")
-	Client = UserRole("customer")
-	Admin  = UserRole("admin")
+	Seller   = UserRol("seller")
+	Customer = UserRol("customer")
+	Admin    = UserRol("admin")
 )
 
 type User struct {
@@ -20,10 +20,10 @@ type User struct {
 	FirstName     string    `json:"first_name" bun:"first_name"`
 	LastName      string    `json:"last_name" bun:"last_name"`
 	Email         string    `json:"email" bun:"email"`
-	Role          UserRole  `json:"rol"`
+	Rol           UserRol   `json:"rol"`
 	Phone         string    `json:"phone"`
 	CompanyId     uuid.UUID `json:"company_id"`
 	CreatedAt     time.Time `json:"created_at"`
-	UpdateAt      time.Time `json:"update_at"`
-	HashPassword  byte      `json:"-"`
+	UpdatedAt     time.Time `json:"updated_at"`
+	HashPassword  []byte    `json:"-" bun:"password_hash"`
 }

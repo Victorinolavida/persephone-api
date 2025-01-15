@@ -27,9 +27,9 @@ func main() {
 	r := server.NewServer()
 
 	userRepository := user.NewUserRepository(db)
-
-	userService := userSvc.NewUserService(userRepository)
 	validator := lib.NewValidator()
+
+	userService := userSvc.NewUserService(userRepository, validator)
 
 	adapters.NewUserController(r, userService, validator)
 
